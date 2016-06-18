@@ -22,3 +22,13 @@
 .player-points{
     padding-right: 10px;
 }
+
+.vertical-container {
+    height: 550px;
+    display: -webkit-flex;
+    display:         flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}

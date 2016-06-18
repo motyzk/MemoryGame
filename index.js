@@ -31,7 +31,7 @@ const startGame = function (numOfPlayers) {
     let timeouted = false;
     for (let i = 0; i < numOfPlayers; i++) {
         playersPoints[i] = 0;
-        $(`#cont`).append($(`<span>`).attr(`id`, `Player` + (i + 1))
+        $(i < 5 ? `.points-block:first` : `.points-block:last`).append($(`<span>`).attr(`id`, `Player` + (i + 1))
                     .addClass(`player-points`).text(`Player` + (i + 1) + `: ` + 0));
     }
     $(`#cont`).append($(`<div>`).attr(`id`, `turn`).text(`Player1's turn`));
@@ -44,7 +44,6 @@ const startGame = function (numOfPlayers) {
     let all = [`a`, `b`, `c`, `d`, `e`, `f`, `g`, `h`, `i`, `j`,
                `a`, `b`, `c`, `d`, `e`, `f`, `g`, `h`, `i`, `j`];
     shuffle(all);
-    console.log(all);
     $.each($(`.d`), function (i, j) {
         $(j).data(`character`, all[i]);
     });
@@ -87,8 +86,11 @@ const startGame = function (numOfPlayers) {
         }, 1300);
     });
 };
-//TODO style - marina's website / flex
 //TODO play on remote - http://cdn.peerjs.com/demo/chat.html
 $(function () {
-    startGame(10);
+    $(`.choose-num-of-players`).on(`click`, `button`, function () {
+        $(`.choose-num-of-players`).hide();
+        $(`#cont`).attr(`hidden`, false);
+        startGame(parseInt($(this).text()));
+    });
 });
