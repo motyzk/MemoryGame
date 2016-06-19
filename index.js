@@ -63,7 +63,7 @@ const startGame = function (numOfPlayers) {
             for (let i = 0; i < numOfPlayers; i++) {
                 $(`#` + `Player` + (i + 1)).text(`Player` + (i + 1) + `: ` + playersPoints[i]);
             }
-            if (unveiled === 9) { //game over
+            if (unveiled === 0) { //game over
                 let maxpoints = Math.max(...playersPoints);
                 for (let i = 0; i < numOfPlayers; i++) {
                     $(`#` + `Player` + (i + 1)).text((`Player` + (i + 1) + `: `)
@@ -86,6 +86,10 @@ const startGame = function (numOfPlayers) {
         }, 1300);
     });
 };
+//TODO style
+//TODO images
+//TODO start again button
+//TODO tie braking game between the leading players
 //TODO play on remote - http://cdn.peerjs.com/demo/chat.html
 $(function () {
     $(`.choose-num-of-players`).on(`click`, `button`, function () {

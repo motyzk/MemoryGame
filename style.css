@@ -32,3 +32,7 @@
     -webkit-justify-content: center;
     justify-content: center;
 }
+
+.bodyc {
+    background-color: lightblue;
+}
