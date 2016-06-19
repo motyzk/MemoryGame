@@ -29,12 +29,17 @@ const startGame = numOfPlayers => {
     let playersPoints = new Array(numOfPlayers);
     let unveiled = 10;
     let timeouted = false;
+    //TODO(Moty) this below should be a template.
     $(`#cont`).append(`<div class="points-block"></div><div class="points-block"></div>`);
     for (let i = 0; i < numOfPlayers; i++) {
         playersPoints[i] = 0;
+        //TODO(Moty) the line below is ugly, fix it. Also, never select things by ID, if you made an item make a refernece
+        // to it rather than picking it by ID. 
+        // Also, don't make dynamic selectors.
         $(i < 5 ? `.points-block:first` : `.points-block:last`).append($(`<span>`).attr(`id`, `Player${i + 1}`)
                     .addClass(`player-points`).text(`Player${i + 1}: 0`));
     }
+    // TODO(Moty) cache your selectors and put mutations of the HTML DOM in one central place
     $(`#cont`).append($(`<div>`).attr(`id`, `turn`).text(`Player1's turn`));
     for (let i = 0; i < 4; i++) {
         $(`#cont`).append($(`<div>`).addClass(`r`));
