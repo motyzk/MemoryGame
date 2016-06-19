@@ -11,12 +11,12 @@ const images = [
     `https://upload.wikimedia.org/wikipedia/en/2/28/Arik_Marshall.jpg`,
     `http://www4.pictures.zimbio.com/gi/Morrissey+In+Concert+VNKNUCnyrAil.jpg`
 ];
-const swap = function (array, i, j) {
+const swap = (array, i, j) => {
     let tmp = array[i];
     array[i] = array[j];
     array[j] = tmp;
 };
-const shuffle = function (array) {
+const shuffle = array => {
     for (let i = array.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         swap(array, i - 1, j);
@@ -29,6 +29,7 @@ const startGame = function (numOfPlayers) {
     let playersPoints = new Array(numOfPlayers);
     let unveiled = 10;
     let timeouted = false;
+    $(`#cont`).append(`<div class="points-block"></div><div class="points-block"></div>`);
     for (let i = 0; i < numOfPlayers; i++) {
         playersPoints[i] = 0;
         $(i < 5 ? `.points-block:first` : `.points-block:last`).append($(`<span>`).attr(`id`, `Player` + (i + 1))
@@ -47,7 +48,9 @@ const startGame = function (numOfPlayers) {
     $.each($(`.d`), function (i, j) {
         $(j).data(`character`, all[i]);
     });
-    $('#cont').on(`click`, `.d`, function () {
+    $(`#cont`).append($(`<button>`).addClass(`btn btn-primary`)
+                .attr(`id`, `start-new`).attr(`type`, `button`).text(`start a new game!`));
+    $(`#cont`).on(`click`, `.d`, function () {
         if (timeouted || (firstCard && firstCard.is($(this)))) {
             return;
         }
@@ -83,18 +86,21 @@ const startGame = function (numOfPlayers) {
         setTimeout(function() {
             $(`.d`).text(`?`);
             timeouted = false;
-        }, 1300);
+        }, 1000);
     });
 };
-//TODO style
-//TODO images
-//TODO start again button
-//TODO tie braking game between the leading players
-//TODO play on remote - http://cdn.peerjs.com/demo/chat.html
-$(function () {
+$(() => {
     $(`.choose-num-of-players`).on(`click`, `button`, function () {
         $(`.choose-num-of-players`).hide();
-        $(`#cont`).attr(`hidden`, false);
+        $(`#cont`).show();
         startGame(parseInt($(this).text()));
     });
+    $(`body`).on(`click`, `#start-new`, () => {
+        $(`#cont`).hide();
+        $(`#cont`).empty();
+        $(`.choose-num-of-players`).show();
+    });
 });
+//TODO style
+//TODO images
+//TODO tie braking game between the leading players
