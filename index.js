@@ -1,4 +1,4 @@
-const images = [
+const images = [ //TODO
     `http://archive.alternativenation.net/wp-content/uploads/2014/03/John-Frusciante-Enclosure.jpg`,
     `https://s-media-cache-ak0.pinimg.com/236x/fb/ff/87/fbff87538862bd19f3efb4da67970a29.jpg`,
     `http://www.grammy.com/files/styles/full_width/public/photos/drummerch_david_63047217_max.jpg?itok=QAxJGFxk`,
@@ -22,7 +22,7 @@ const shuffle = array => {
         swap(array, i - 1, j);
     }
 };
-const startGame = function (numOfPlayers) {
+const startGame = numOfPlayers => {
     let veiled = true;
     let firstCard = null;
     let player = 0; //who is the player playing now
@@ -32,8 +32,8 @@ const startGame = function (numOfPlayers) {
     $(`#cont`).append(`<div class="points-block"></div><div class="points-block"></div>`);
     for (let i = 0; i < numOfPlayers; i++) {
         playersPoints[i] = 0;
-        $(i < 5 ? `.points-block:first` : `.points-block:last`).append($(`<span>`).attr(`id`, `Player` + (i + 1))
-                    .addClass(`player-points`).text(`Player` + (i + 1) + `: ` + 0));
+        $(i < 5 ? `.points-block:first` : `.points-block:last`).append($(`<span>`).attr(`id`, `Player${i + 1}`)
+                    .addClass(`player-points`).text(`Player${i + 1}: 0`));
     }
     $(`#cont`).append($(`<div>`).attr(`id`, `turn`).text(`Player1's turn`));
     for (let i = 0; i < 4; i++) {
@@ -64,12 +64,12 @@ const startGame = function (numOfPlayers) {
             unveiled -= 1;
             playersPoints[player] += 10;
             for (let i = 0; i < numOfPlayers; i++) {
-                $(`#` + `Player` + (i + 1)).text(`Player` + (i + 1) + `: ` + playersPoints[i]);
+                $(`#` + `Player${i + 1}`).text(`Player${i + 1}: ${playersPoints[i]}`);
             }
             if (unveiled === 0) { //game over
                 let maxpoints = Math.max(...playersPoints);
                 for (let i = 0; i < numOfPlayers; i++) {
-                    $(`#` + `Player` + (i + 1)).text((`Player` + (i + 1) + `: `)
+                    $(`#Player${i + 1}`).text((`Player${i + 1}: `)
                         .concat(playersPoints[i] === maxpoints ? `win :)` : `loss :(`));
                 }
                 $('.d').removeClass('d');
@@ -81,7 +81,7 @@ const startGame = function (numOfPlayers) {
             player = (player + 1) % numOfPlayers;
         }
         firstCard = null;
-        $('#turn').text(`Player` + (player + 1) + `'s turn`);
+        $('#turn').text(`Player${player + 1}'s turn`);
         timeouted = true;
         setTimeout(function() {
             $(`.d`).text(`?`);
@@ -101,6 +101,3 @@ $(() => {
         $(`.choose-num-of-players`).show();
     });
 });
-//TODO style
-//TODO images
-//TODO tie braking game between the leading players
