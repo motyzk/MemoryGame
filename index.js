@@ -11,15 +11,11 @@ const images = [ //TODO
     `https://upload.wikimedia.org/wikipedia/en/2/28/Arik_Marshall.jpg`,
     `http://www4.pictures.zimbio.com/gi/Morrissey+In+Concert+VNKNUCnyrAil.jpg`
 ];
-const swap = (array, i, j) => {
-    let tmp = array[i];
-    array[i] = array[j];
-    array[j] = tmp;
-};
+
 const shuffle = array => {
     for (let i = array.length; i; i--) {
         let j = Math.floor(Math.random() * i);
-        swap(array, i - 1, j);
+        [array[j], array[i - 1] = [array[i - 1], array[j]];
     }
 };
 const startGame = numOfPlayers => {
